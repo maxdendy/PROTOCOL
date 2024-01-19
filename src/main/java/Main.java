@@ -1,5 +1,6 @@
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
+import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.utils.MemberCachePolicy;
 
@@ -12,5 +13,12 @@ public class Main {
                 .build();
 
         jda.addEventListener(new Listeners());
+        jda.upsertCommand("play", "Запускает ссылку на медиа.")
+                .addOption(OptionType.STRING, "track", "Добавляй чего смотришь?", true)
+                .queue();
+        /*todo патом
+        jda.upsertCommand("stop", "Скипает всё и ливает.").queue();
+        jda.upsertCommand("skip", "Скипает текущий.").queue();
+        jda.upsertCommand("search", "Ищет на ютубе.").queue(); //todo добавить поддержку яндекса*/
     }
 }
