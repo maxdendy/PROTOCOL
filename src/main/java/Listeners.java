@@ -13,7 +13,7 @@ public class Listeners extends ListenerAdapter {
             for (Member m: memberList) {
                 prompt.append(m.getUser().getAsMention()).append('\n');
             }
-            prompt.append("Все пидарасы!");
+            prompt.append("Все участники!");
             event.getMessage().reply(prompt).mentionRepliedUser(false).queue();
         });
     }
