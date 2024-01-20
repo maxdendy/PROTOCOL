@@ -1,12 +1,14 @@
 package lava;
 
 import com.sedmelluq.discord.lavaplayer.player.AudioLoadResultHandler;
+import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
 import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager;
 import com.sedmelluq.discord.lavaplayer.source.AudioSourceManagers;
 import com.sedmelluq.discord.lavaplayer.tools.FriendlyException;
 import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
+import com.sedmelluq.discord.lavaplayer.track.AudioTrackInfo;
 import net.dv8tion.jda.api.entities.Guild;
 
 import java.util.HashMap;
@@ -40,8 +42,9 @@ public class PlayerManager {
         });
     }
 
-    public void play(Guild guild, String trackURL) {
+    public String play(Guild guild, String trackURL) {
         GuildMusicManager guildMusicManager = getGuildMusicManager(guild);
+
         audioPlayerManager.loadItemOrdered(guildMusicManager, trackURL, new AudioLoadResultHandler() {
             @Override
             public void trackLoaded(AudioTrack track) {
@@ -55,13 +58,34 @@ public class PlayerManager {
 
             @Override
             public void noMatches() {
-                System.out.println("yoooo");
+
             }
 
             @Override
             public void loadFailed(FriendlyException exception) {
-                System.out.println("naaaaay");
+
             }
         });
+
+        return "title[0]";
+    }
+
+    public void skip(Guild guild) {
+        GuildMusicManager guildMusicManager = getGuildMusicManager(guild);
+        guildMusicManager.getTrackScheduler().getPlayer().stopTrack();
+    }
+
+    public void stop(Guild guild) {
+        GuildMusicManager guildMusicManager = getGuildMusicManager(guild);
+        guildMusicManager.getTrackScheduler().getQueue().clear();
+        guildMusicManager.getTrackScheduler().getPlayer().stopTrack();
+    }
+
+    public AudioTrackInfo now(Guild guild) {
+        AudioPlayer ap = PlayerManager.get().getGuildMusicManager(guild).getTrackScheduler().getPlayer();
+        if(ap.getPlayingTrack() == null) {
+            return null;
+        }
+        return ap.getPlayingTrack().getInfo();
     }
 }

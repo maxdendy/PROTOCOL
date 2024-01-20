@@ -9,4 +9,4 @@ target/
 *.iml
 *.ipr
 
-src/main/SOMETEXT
+src/main/java/SOMETEXT.java

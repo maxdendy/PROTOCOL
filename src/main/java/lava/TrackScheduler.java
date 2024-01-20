@@ -15,6 +15,8 @@ public class TrackScheduler extends AudioEventAdapter {
 
     public TrackScheduler(AudioPlayer player) {
         this.player = player;
+        this.player.setVolume(DefaultMusicConfig.VOLUME);
+
     }
 
     @Override
@@ -26,5 +28,13 @@ public class TrackScheduler extends AudioEventAdapter {
         if(!player.startTrack(track, true)) {
             queue.offer(track);
         }
+    }
+
+    public AudioPlayer getPlayer() {
+        return player;
+    }
+
+    public BlockingQueue<AudioTrack> getQueue() {
+        return queue;
     }
 }

@@ -8,12 +8,19 @@ public class Commands {
         switch (cmd) {
             case "play":
                 MusicCommands.play(e);
-            case "skip":
-                //todo
+                break;
             case "stop":
-                //todo
+                MusicCommands.stop(e);
+                break;
+            case "skip":
+                MusicCommands.skip(e);
+                break;
+            case "playing":
+                MusicCommands.now(e);
+                break;
             case "search":
                 //todo
+                break;
         }
     }
 }
