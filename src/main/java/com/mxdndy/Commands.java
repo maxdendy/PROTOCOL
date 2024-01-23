@@ -1,4 +1,6 @@
-import music.MusicCommands;
+package com.mxdndy;
+
+import com.mxdndy.music.MusicCommands;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 
 public class Commands {

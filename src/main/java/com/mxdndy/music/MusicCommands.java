@@ -1,7 +1,7 @@
-package music;
+package com.mxdndy.music;
 
 import com.sedmelluq.discord.lavaplayer.track.AudioTrackInfo;
-import lava.PlayerManager;
+import com.mxdndy.lava.PlayerManager;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.GuildVoiceState;
 import net.dv8tion.jda.api.entities.Member;
@@ -50,11 +50,11 @@ public class MusicCommands {
             e.reply("Не играет, чего ты ждал?").setEphemeral(true).queue();
             return;
         }
-        EmbedBuilder embedBuilder = new EmbedBuilder();
-        embedBuilder.setTitle("Сейчас играет");
-        embedBuilder.setDescription("**Название:** `" + info.title + "`");
-        embedBuilder.appendDescription("\n**Автор:** `" + info.author + "`");
-        embedBuilder.appendDescription("\n**Ссылка:** " + info.uri);
+        EmbedBuilder embedBuilder = new EmbedBuilder()
+                .setTitle("Сейчас играет")
+                .setDescription("**Название:** `" + info.title + "`")
+                .appendDescription("\n**Автор:** `" + info.author + "`")
+                .appendDescription("\n**Ссылка:** " + info.uri);
         e.replyEmbeds(embedBuilder.build()).setEphemeral(true).queue();
     }
 
