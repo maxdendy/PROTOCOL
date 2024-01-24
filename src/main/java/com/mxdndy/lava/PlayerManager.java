@@ -1,5 +1,7 @@
 package com.mxdndy.lava;
 
+import com.mxdndy.SOMETEXT;
+import com.mxdndy.lava.LavaSrc.YandexMusicSourceManager;
 import com.sedmelluq.discord.lavaplayer.player.AudioLoadResultHandler;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
@@ -17,10 +19,12 @@ import java.util.Map;
 public class PlayerManager {
 
     private static PlayerManager INSTANCE;
-    private Map<Long, GuildMusicManager> guildMusicManagers = new HashMap<>();
-    private AudioPlayerManager audioPlayerManager = new DefaultAudioPlayerManager();
+    private final Map<Long, GuildMusicManager> guildMusicManagers = new HashMap<>();
+    private final AudioPlayerManager audioPlayerManager;
 
     public PlayerManager() {
+        audioPlayerManager = new DefaultAudioPlayerManager();
+        audioPlayerManager.registerSourceManager(new YandexMusicSourceManager(SOMETEXT.YATOKEN));
         AudioSourceManagers.registerRemoteSources(audioPlayerManager);
         AudioSourceManagers.registerLocalSource(audioPlayerManager);
     }
@@ -42,7 +46,7 @@ public class PlayerManager {
         });
     }
 
-    public String play(Guild guild, String trackURL) {
+    public void play(Guild guild, String trackURL) {
         GuildMusicManager guildMusicManager = getGuildMusicManager(guild);
 
         audioPlayerManager.loadItemOrdered(guildMusicManager, trackURL, new AudioLoadResultHandler() {
@@ -66,8 +70,6 @@ public class PlayerManager {
 
             }
         });
-
-        return "title[0]";
     }
 
     public void skip(Guild guild) {

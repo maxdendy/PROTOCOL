@@ -9,20 +9,22 @@ import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEve
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Objects;
 
 public class MusicCommands {
     public static void play(SlashCommandInteractionEvent e) {
         if(check(e)) return;
         join(e);
 
-        String track = e.getOption("track").getAsString();
+        String track = Objects.requireNonNull(e.getOption("track")).getAsString();
         try {
             new URL(track);
         } catch (MalformedURLException ex) {
             track = "ytsearch:" + track;
         }
 
-        e.reply(PlayerManager.get().play(e.getGuild(), track)).setEphemeral(true).queue();
+        PlayerManager.get().play(e.getGuild(), track);
+        e.reply("text").setEphemeral(true).queue();
     }
 
     public static void skip(SlashCommandInteractionEvent e) {

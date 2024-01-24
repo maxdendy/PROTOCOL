@@ -2,13 +2,14 @@ package com.mxdndy;
 
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
+import net.dv8tion.jda.api.interactions.commands.Command;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.utils.MemberCachePolicy;
 
 public class Main {
     public static void main(String[] args) {
-        JDA jda = JDABuilder.createDefault(SOMETEXT.TOKEN)
+        JDA jda = JDABuilder.createDefault(SOMETEXT.BETOKEN)
                 .setEnabledIntents(
                         GatewayIntent.GUILD_MEMBERS,
                         GatewayIntent.GUILD_VOICE_STATES,
@@ -21,8 +22,8 @@ public class Main {
         jda.addEventListener(new Listeners());
 
         //todo добавить поддержку яндекса
-        jda.upsertCommand("play", "Запускает ссылку на медиа.")
-                .addOption(OptionType.STRING, "track", "Добавляй чего смотришь?", true)
+        jda.upsertCommand("play", "Включает на ютубе или по ссылке.")
+                .addOption(OptionType.STRING, "track", "btw можно ссылку яндекса.", true)
                 .queue();
         jda.upsertCommand("skip", "Скипает текущий.")
                 .queue();
